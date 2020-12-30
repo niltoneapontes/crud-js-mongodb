@@ -1,5 +1,6 @@
 const User = require('../models/user');
-const  { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
+const { hash } = require('bcryptjs');
 
 class UserController {
   async getAll(req, res) {
@@ -16,7 +17,7 @@ class UserController {
 
     const foundUser = await User.find({ email: email });
 
-    console.log(foundUser)
+    const encryptedPassword = await hash(password, 8);
 
     if(foundUser.length !== 0) {
       return res.status(500).send({ message: 'Esse e-mail já foi cadastrado.'})
@@ -26,7 +27,7 @@ class UserController {
       id: uuidv4(),
       name,
       email,
-      password,
+      password: encryptedPassword,
       admin
     });
 
@@ -54,17 +55,25 @@ class UserController {
     const { id } = req.params;
     const { name, email, password, admin} = req.body;
 
+    const encryptedPassword = await hash(password, 8);
+
+    const updatedUser = {
+      name, 
+      email,
+      password: encryptedPassword,
+      admin,
+    };
+
     try {
-      const user = await User.findOneAndUpdate({ id: id }, {
-        name, 
-        email,
-        password,
-        admin,
-      });
-      return res.status(200).send({ message: 'Usuário atualizado', user: user });
+      const user = await User.findOneAndUpdate({ id: id }, updatedUser);
+      return res.status(200).send({ message: 'Usuário atualizado', user: updatedUser });
     } catch(err) {
       return res.status(503).send({ error: err });
     }
+  }
+
+  async login(req, res) {
+    
   }
 }
 

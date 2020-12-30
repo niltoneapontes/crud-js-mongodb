@@ -7,7 +7,7 @@ const url = 'mongodb://localhost/MyFirstDB'
 
 const app = express();
 
-mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
 const con = mongoose.connection;
 
 con.on('open', function() {
