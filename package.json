@@ -1,0 +1,39 @@
+{
+  "name": "crud-js-mongodb",
+  "version": "1.0.0",
+  "description": "A little project to practice using express and mongodb",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niltoneapontes/crud-js-mongodb.git"
+  },
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "express",
+    "crud",
+    "backend",
+    "nodejs"
+  ],
+  "author": "Nilton Pontes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niltoneapontes/crud-js-mongodb/issues"
+  },
+  "homepage": "https://github.com/niltoneapontes/crud-js-mongodb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.9",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
