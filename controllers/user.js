@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const { v4: uuidv4 } = require('uuid');
 const { hash } = require('bcryptjs');
+const authenticateUser = require('../services/authenticateUser');
 
 class UserController {
   async getAll(req, res) {
@@ -73,7 +74,18 @@ class UserController {
   }
 
   async login(req, res) {
-    
+    const { email, password } = req.body;
+
+    try {
+      const { user, token } = await authenticateUser(email, password);
+      
+      return res.status(200).send({
+        user: user,
+        token: token
+      });
+    } catch (err) {
+      return res.status(500).json({ error: err })
+    }
   }
 }
 

@@ -10,4 +10,6 @@ routes.post('/', userController.createUser);
 routes.delete('/:id', userController.deleteUser);
 routes.put('/:id', userController.updateUser);
 
+routes.post('/login', userController.login);
+
 module.exports = routes;
