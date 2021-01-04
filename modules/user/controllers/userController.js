@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const { v4: uuidv4 } = require('uuid');
 const { hash } = require('bcryptjs');
-const authenticateUser = require('../services/authenticateUser');
+const AuthenticateUserService = require('../services/authenticateUser');
 
 class UserController {
   async getAll(req, res) {
@@ -16,11 +16,13 @@ class UserController {
   async createUser(req, res) {
     const { name, email, password, admin} = req.body;
 
-    const foundUser = await User.find({ email: email });
+    const foundUser = await User.findOne({ email: email });
+
+    console.log(foundUser);
 
     const encryptedPassword = await hash(password, 8);
 
-    if(foundUser.length !== 0) {
+    if(foundUser) {
       return res.status(500).send({ message: 'Esse e-mail já foi cadastrado.'})
     }
 
@@ -74,17 +76,19 @@ class UserController {
   }
 
   async login(req, res) {
-    const { email, password } = req.body;
+    const authenticateUser = new AuthenticateUserService();
 
+    const { email, password } = req.body;
+    
     try {
-      const { user, token } = await authenticateUser(email, password);
-      
-      return res.status(200).send({
+      const { user, token } = await authenticateUser.execute(email, password);
+    
+      return res.json({
         user: user,
         token: token
       });
-    } catch (err) {
-      return res.status(500).json({ error: err })
+    } catch(err) {
+      return res.status(500).json({ title: 'Erro ao realizar login', message: 'Verifique seu login e senha e tente novamente em alguns instantes'});
     }
   }
 }
