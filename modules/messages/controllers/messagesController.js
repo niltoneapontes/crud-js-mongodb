@@ -57,24 +57,28 @@ class MessagesController {
   }
 
   async getMessagesForBot(request, response) {
+    console.info('Retrieving messages...')
     try {
       const messages = await Message.find();
       const formattedMessages = messages.map(message => {
-        return {
-          id: message.id,
-          trigger: message.trigger,
-          user: message.user,
-          validator: message.validator,
-          message: message.message,
-          component: message.component,
-          end: message.end,
-          options: message.options,
-          update: message.update 
+        const returnObject = {
+          id: message.id
         }
+        
+        message.trigger !== null && Object.assign(returnObject, {trigger: message.trigger});
+        message.user !== null && Object.assign(returnObject, {user: message.user});
+        message.validator !== null && Object.assign(returnObject, {validator: message.validator});
+        message.message !== null && Object.assign(returnObject, {message: message.message});
+        message.component !== null && Object.assign(returnObject, {component: message.component});
+        message.end !== null && Object.assign(returnObject, {end: message.end});
+        message.options !== null && Object.assign(returnObject, {options: message.options});
+        message.update !== null && Object.assign(returnObject, {update: message.update});
+
+        return returnObject;
       })
       return response.status(200).json(formattedMessages);
     } catch(err) {
-      return response.status(503).send('Error: ', err)
+      return response.status(503).send(err)
     }
   }
 
