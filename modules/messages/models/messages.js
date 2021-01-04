@@ -15,15 +15,15 @@ const messageSchema = new mongoose.Schema({
     required: false,
   },
   validator: {
-    type: Schema.Types.Mixed,
+    type: String,
     required: false,
   },
   message: {
-    type: Schema.Types.Mixed, // pode ser uma String ou uma Function. Caso function => ~~~ new Function("a", "b", "return a + b"); ~~~
+    type: String, // pode ser uma String ou uma Function. Caso function => ~~~ new Function("a", "b", "return a + b"); ~~~
     required: false,
   },
   component: {
-    type: Schema.Types.Mixed, // será um componente React
+    type: String, // será um componente React
     required: false,
   },
   end: {

@@ -11,7 +11,7 @@ mongoose.connect(url, { useNewUrlParser: true, useFindAndModify: false, useUnifi
 const con = mongoose.connection;
 
 con.on('open', function() {
-  console.log('Connected to DB')
+  console.log('Connected to Database ✨')
 })
 
 app.use(express.json());
@@ -19,3 +19,5 @@ app.use(cors());
 app.use(routes);
 
 app.listen(3333);
+
+console.info('Server running on port 3333 ⚡')
