@@ -11,7 +11,7 @@ mongoose.connect(url, { useNewUrlParser: true, useFindAndModify: false, useUnifi
 const con = mongoose.connection;
 
 con.on('open', function() {
-  console.log('Connected to Database ✨')
+  console.info('Connected to Database ✨')
 })
 
 app.use(express.json());
