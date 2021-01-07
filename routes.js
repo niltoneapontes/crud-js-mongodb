@@ -2,6 +2,7 @@ const { Router } = require('express');
 const UserController = require('./modules/user/controllers/userController');
 const MessagesController = require('./modules/messages/controllers/messagesController');
 const LanguagesController = require('./modules/languages/controllers/languagesController');
+const ensureAuthenticated = require('./middlewares/ensureAuthenticated');
 
 const routes = Router();
 
@@ -14,6 +15,7 @@ routes.post('/', userController.createUser);
 routes.delete('/:id', userController.deleteUser);
 routes.put('/:id', userController.updateUser);
 routes.post('/login', userController.login);
+routes.post('/auth', ensureAuthenticated);
 
 routes.get('/messages/', messagesController.getMessages);
 routes.get('/messages/bot', messagesController.getMessagesForBot);
