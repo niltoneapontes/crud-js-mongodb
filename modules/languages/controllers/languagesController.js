@@ -1,4 +1,4 @@
-const Language = require('../models/languages');
+const Language = require('../models/language');
 
 
 class LanguagesController {
