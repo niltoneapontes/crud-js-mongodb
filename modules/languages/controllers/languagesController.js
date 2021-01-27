@@ -47,7 +47,8 @@ class LanguagesController {
       return response.status(200).send({ message: 'Mensagem adicionada com sucesso!', language: language })
     } catch(err) {
       return response.status(503).send({ error: err })
-    }  }
+    }  
+  }
   
   async deleteLanguages(request, response) {
 
